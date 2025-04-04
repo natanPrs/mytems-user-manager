@@ -2,7 +2,7 @@ package com.mtuser.services
 
 import com.mtuser.dtos.UserDto
 import com.mtuser.mappers.toUserEntity
-import com.mtuser.models.UserModel
+import com.mtuser.domain.users.UserModel
 import com.mtuser.repositories.UserRepository
 import org.springframework.stereotype.Service
 
