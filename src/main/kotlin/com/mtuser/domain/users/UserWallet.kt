@@ -6,5 +6,5 @@ import java.math.BigDecimal
 @Embeddable
 data class UserWallet(
 
-    val amount: BigDecimal
+    var amount: BigDecimal = BigDecimal.ZERO
 )
