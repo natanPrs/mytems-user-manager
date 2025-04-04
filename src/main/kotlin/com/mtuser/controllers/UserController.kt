@@ -1,7 +1,7 @@
 package com.mtuser.controllers
 
 import com.mtuser.dtos.UserDto
-import com.mtuser.models.UserModel
+import com.mtuser.domain.users.UserModel
 import com.mtuser.services.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
