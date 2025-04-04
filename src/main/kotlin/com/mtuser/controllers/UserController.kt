@@ -4,6 +4,7 @@ import com.mtuser.domain.inventory.ItemModel
 import com.mtuser.dtos.UserDto
 import com.mtuser.domain.users.UserModel
 import com.mtuser.dtos.InventoryResponseDto
+import com.mtuser.dtos.MoneyToWalletDto
 import com.mtuser.services.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -40,5 +41,11 @@ class UserController(private val userService: UserService) {
     fun getUserInventory(@PathVariable email: String): ResponseEntity<List<InventoryResponseDto>> {
         val inventory = userService.getInventory(email)
         return ResponseEntity.ok(inventory)
+    }
+
+    @PostMapping("/money")
+    fun addMoneyToWallet(@RequestBody moneyToWalletDto: MoneyToWalletDto): ResponseEntity<UserModel> {
+        val user = userService.addMoneyToWallet(moneyToWalletDto)
+        return ResponseEntity(user, HttpStatus.OK)
     }
 }

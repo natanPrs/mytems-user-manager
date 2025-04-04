@@ -5,6 +5,7 @@ import com.mtuser.dtos.UserDto
 import com.mtuser.mappers.toUserEntity
 import com.mtuser.domain.users.UserModel
 import com.mtuser.dtos.InventoryResponseDto
+import com.mtuser.dtos.MoneyToWalletDto
 import com.mtuser.repositories.ItemRepository
 import com.mtuser.repositories.UserRepository
 import org.springframework.stereotype.Service
@@ -28,5 +29,12 @@ class UserService(
 
     fun getInventory(email: String): List<InventoryResponseDto> {
         return itemRepository.findTitlesByUserEmail(email)
+    }
+
+    fun addMoneyToWallet(moneyToWalletDto: MoneyToWalletDto): UserModel {
+        val user = userRepository.findUserByEmail(moneyToWalletDto.email) ?: throw Exception("User not found.")
+        user.wallet.amount = user.wallet.amount.add(moneyToWalletDto.amount)
+
+        return userRepository.save(user)
     }
 }
