@@ -1,7 +1,9 @@
 package com.mtuser.controllers
 
+import com.mtuser.domain.inventory.ItemModel
 import com.mtuser.dtos.UserDto
 import com.mtuser.domain.users.UserModel
+import com.mtuser.dtos.InventoryResponseDto
 import com.mtuser.services.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -32,5 +34,11 @@ class UserController(private val userService: UserService) {
 
     @GetMapping
     fun getAllUsers(): ResponseEntity<List<UserModel>> { return ResponseEntity(userService.getAllUsers(), HttpStatus.OK)
+    }
+
+    @GetMapping("/{email}")
+    fun getUserInventory(@PathVariable email: String): ResponseEntity<List<InventoryResponseDto>> {
+        val inventory = userService.getInventory(email)
+        return ResponseEntity.ok(inventory)
     }
 }
