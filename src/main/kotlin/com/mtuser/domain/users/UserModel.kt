@@ -23,7 +23,7 @@ import java.util.*
         val nickname: String,
 
         @Embedded
-        val wallet: UserWallet? = null,
+        val wallet: UserWallet = UserWallet(),
 
         @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         @OneToMany(mappedBy = "userOwner", fetch = FetchType.LAZY)

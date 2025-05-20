@@ -18,7 +18,7 @@ data class ItemModel(
 
     val gameBelong: String,
 
-    val status: ItemStatus = ItemStatus.INVENTORY,
+    var status: ItemStatus = ItemStatus.INVENTORY,
 
     @ManyToOne
     @JoinColumn(name = "user_id")
