@@ -1,6 +1,7 @@
 package com.mtuser.controllers
 
 import com.mtuser.domain.inventory.ItemModel
+import com.mtuser.dtos.AnnounceItemDto
 import com.mtuser.dtos.ItemDto
 import com.mtuser.services.ItemService
 import org.springframework.http.HttpStatus
@@ -19,6 +20,12 @@ class ItemController(private val itemService: ItemService) {
     fun createItem(@RequestBody itemDto: ItemDto): ResponseEntity<ItemModel> {
         val newItem = itemService.createItem(itemDto)
         return ResponseEntity(newItem, HttpStatus.CREATED)
+    }
+
+    @PostMapping("/sells")
+    fun announceItem(@RequestBody announceItemDto: AnnounceItemDto): ResponseEntity<ItemModel> {
+        val itemAnnounced = itemService.announceItem(announceItemDto)
+        return ResponseEntity(itemAnnounced, HttpStatus.OK)
     }
 
     @GetMapping
