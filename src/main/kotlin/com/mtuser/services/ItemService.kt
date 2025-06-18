@@ -11,6 +11,7 @@ import com.mtuser.repositories.ItemRepository
 import com.mtuser.repositories.UserRepository
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
+import java.util.UUID
 
 @Service
 class ItemService(
@@ -36,4 +37,15 @@ class ItemService(
     }
 
     fun getAllItems(): List<ItemModel> { return itemRepository.findAll() }
+
+    fun updateItemOwner(globalItemId: UUID, newUserOwnerId: UUID){
+        val newUserOwner = userRepository.findById(newUserOwnerId)
+            .orElseThrow { Exception("User $newUserOwnerId not found") }
+
+        val item = itemRepository.findByGlobalItemId(globalItemId)
+            ?: throw Exception("Item $globalItemId not found")
+
+        item.userOwner = newUserOwner
+        itemRepository.save(item)
+    }
 }
