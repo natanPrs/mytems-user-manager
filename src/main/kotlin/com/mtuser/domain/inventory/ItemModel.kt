@@ -14,6 +14,8 @@ data class ItemModel(
     @Id
     val id: UUID = UUID.randomUUID(),
 
+    val globalItemId: UUID = UUID.randomUUID(),
+
     val title: String,
 
     val gameBelong: String,
@@ -22,5 +24,5 @@ data class ItemModel(
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val userOwner: UserModel
+    var userOwner: UserModel
 )

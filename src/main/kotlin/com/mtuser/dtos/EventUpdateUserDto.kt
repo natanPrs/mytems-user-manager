@@ -1,9 +1,10 @@
 package com.mtuser.dtos
 
+import java.math.BigDecimal
 import java.util.UUID
 
-data class PurchaseDto(
+data class EventUpdateUserDto(
+    val amount: BigDecimal,
     val buyerId: UUID,
-    val sellerId: UUID,
     val globalItemId: UUID,
 )
