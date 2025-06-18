@@ -1,6 +1,5 @@
 package com.mtuser.services
 
-import com.mtuser.domain.inventory.ItemModel
 import com.mtuser.dtos.UserDto
 import com.mtuser.mappers.toUserEntity
 import com.mtuser.domain.users.UserModel
@@ -9,6 +8,8 @@ import com.mtuser.dtos.MoneyToWalletDto
 import com.mtuser.repositories.ItemRepository
 import com.mtuser.repositories.UserRepository
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
+import java.util.UUID
 
 @Service
 class UserService(
@@ -33,8 +34,21 @@ class UserService(
 
     fun addMoneyToWallet(moneyToWalletDto: MoneyToWalletDto): UserModel {
         val user = userRepository.findUserByEmail(moneyToWalletDto.email) ?: throw Exception("User not found.")
-        user.wallet.amount = user.wallet.amount.add(moneyToWalletDto.amount)
+        user.wallet.addMoney(moneyToWalletDto.amount)
 
         return userRepository.save(user)
+    }
+
+    fun updateUsersBalance(globalItemId: UUID, buyerId: UUID, amount: BigDecimal){
+        val seller = itemRepository.findByGlobalItemId(globalItemId)
+            ?.userOwner ?: throw Exception("Item $globalItemId not Found")
+
+        val buyer = userRepository.findById(buyerId)
+            .orElseThrow { Exception("User $buyerId not found.") }
+
+        seller.wallet.addMoney(amount)
+        buyer.wallet.removeMoney(amount)
+
+        userRepository.saveAll(listOf(seller, buyer))
     }
 }
