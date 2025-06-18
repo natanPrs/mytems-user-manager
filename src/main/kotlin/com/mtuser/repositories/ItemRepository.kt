@@ -11,4 +11,6 @@ interface ItemRepository : JpaRepository<ItemModel, UUID> {
 
     @Query("SELECT NEW com.mtuser.dtos.InventoryResponseDto(i.title, i.status) FROM ItemModel i WHERE i.userOwner.email = :email")
     fun findTitlesByUserEmail(@Param("email") email: String): List<InventoryResponseDto>
+
+    fun findByGlobalItemId(globalItemId: UUID): ItemModel?
 }

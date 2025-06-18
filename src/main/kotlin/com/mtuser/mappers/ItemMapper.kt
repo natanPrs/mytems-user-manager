@@ -25,6 +25,7 @@ fun ItemToAnnounceDto.toItemAnnouncedDto(itemRepository: ItemRepository): ItemAn
 
     return ItemAnnouncedDto(
         title = item.title,
+        globalItemId = item.globalItemId,
         localStamp = LocalDateTime.now(),
         sellerEmail = this.sellerEmail,
         amount = this.amount,
